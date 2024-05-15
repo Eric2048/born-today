@@ -1,0 +1,46 @@
+{
+  "name": "born-today",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@inovua/reactdatagrid-community": "^5.10.2",
+    "@reduxjs/toolkit": "^2.2.4",
+    "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
+    "http-constants-ts": "^1.0.8",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.0",
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.1.0",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.7",
+    "@types/react": "^18.3.2",
+    "@types/react-bootstrap": "^0.32.36",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/ui": "^1.6.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "jsdom": "^24.0.0",
+    "msw": "^2.3.0",
+    "sass": "^1.77.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
+  }
+}

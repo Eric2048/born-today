@@ -1,0 +1,205 @@
+
+// Centralized CSS for all React components, so that the impact of media queries
+// on the entire App strucure is clear.
+
+// For the top-level <div id="root"> (see main.tsx)
+#root {
+  // Horizontally center App UX
+  margin: 0 auto;
+  height: 100vh;
+}
+
+//------------------------------------------------------------------------------
+// Default layout and sizing, NOT impacted by media queries
+.app-container {
+  max-width: 1268px;
+  height: 100vh;
+
+  padding-bottom: 10px;
+
+  .app-row-bottom {
+     // Prevent children from forcing height to increase
+     overflow: hidden;
+
+    .app-row-bottom-col {
+      // Use full height of .app-row-bottom and no more!
+      height: 100%;
+      overflow-y: scroll;
+    }
+  }
+
+   // Note: will nest this inside the above for clarity but deferring that
+   // for this commit to simplify diffs.
+  .people-view {
+    // Note: this is a <Container fluid>, with .container-fluid adding { width: 100%; }
+    // Expand to height of .app-row-bottom-col
+    height: 100%;
+
+    .people-view-row {
+      // Note: this is a <Row>. Must override its flex-wrap
+      flex-wrap: unset;
+
+      .people-view-left {
+        .people-list-grid {
+          // Hide the ColumnContextMenu in each column header
+          .InovuaReactDataGrid__column-header__menu-tool {
+            display: none;
+          } 
+        }
+      }
+      .people-view-right {
+        .person-view {
+          .person-view-noimage {
+            width: 200px;
+            height: 200px;
+            background-color: lightgrey;
+          }
+        }
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// Default layout and sizing, overridden by media queries below.
+.app-container {
+  .app-title {
+    // Override .h1 for narrow width
+    font-size: 2em;
+  }
+
+  .people-view {
+    .people-view-row {
+      // Stack <PeopleListView> above <PersonView>
+      display: flex;
+      flex-direction: column;
+
+      // Center <PersonView> .people-view-right and its <PersonView> in this column
+      align-items: center;
+
+      // Use full height of .people-view
+      height: 100%;
+
+      .people-view-left {
+        // <PeopleListView> will take the top 50%, <PersonView> will take the remaining height.
+        // Note: from Bootstrap 'col':
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 0%;
+        
+        // Important: expand to full width of .people-view-row
+        width: 100%;
+
+        // To simplify, overriding <Row> .row { max-width: 100%; }
+        max-width: unset;
+
+        // Stack text vertically (two lines)
+        .person-cell {
+          display: flex;
+          flex-direction: column;
+          gap: 0px;
+        }
+      }
+
+      .people-view-right {
+        // Note: from Bootstrap 'col':
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 0%;
+
+        // To simplify, overriding <Row> .row { max-width: 100%; }
+        max-width: unset;
+
+        .person-view {
+          // <Card>: horizontal layout
+          display: flex;
+          flex-direction: row;
+
+          .person-view-image {
+            // Some historical images are very tall
+            max-width: 50%;
+          }
+
+          .card-body {
+            margin-top: 10px;
+            .card-title {
+              .card-title-year {
+                word-wrap: normal;
+                word-break: normal;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sizing at 900px+ (Can place list and card side-by-side)
+@media only screen and (min-width: 900px) {
+  .app-container {  
+    .app-title {
+      // Match .h1 value for comparison to smaller size (see above)
+      font-size: 3.2em;
+    }
+  
+    .people-view {
+      .people-view-row {
+        // Place <PeopleListView> next to <PersonView>
+        display: flex;
+        flex-direction: row;
+  
+        // Top-justify <PersonView> .people-view-right and its <PersonView> in this column
+        align-items: flex-start;
+
+        .people-view-left {
+          // Target 60% width
+          flex-grow: 1;
+          flex-shrink: 0;  
+          flex-basis: 60%; // Override's <Col> .col { flex-basis: 0%; }
+
+          // Allow <PeopleListView> to expand to the full height in this column.
+          height: 100%;
+        }
+
+        .people-view-right {
+          // Target 40% width
+          flex-grow: 1;
+          flex-shrink: 0;
+          flex-basis: 40%;
+
+          // Expand column to full height so <PersonView> can be placed at the top
+          height: 100%;
+
+          // <Person> will fit its content's height, up to its parent's height
+          .person-view {
+            // <Card>: vertical layout
+            display: flex;
+            flex-direction: column;
+          
+            .person-view-image {
+              max-width: 100%;
+            }  
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .app-container {
+    .people-view {
+      .people-view-row {
+        .people-view-left {
+          // Text in one line
+          .person-cell {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
+}
